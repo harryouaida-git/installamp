@@ -1,53 +1,81 @@
-# Install AMP
+# Install AMP (Apache, MariaDB, PHP) on Linux Mint – Beginner Guide
 
-Install AMP (Apache, MariaDB, PHP) on Linux Mint – Beginner Guide
+This guide explains how to manually install an AMP stack on Linux Mint.  
+AMP stands for **Apache** (web server), **MariaDB** (database), and **PHP** (server-side scripting).  
+On Linux, this setup is also called **LAMP** (Linux, Apache, MariaDB/MySQL, PHP).
 
-## Update system:
+---
 
-sudo apt update && sudo apt upgrade -y
+## 1. Update the System  
+Open the terminal and run:  
+`sudo apt update && sudo apt upgrade -y`
 
-## Install Apache:
+---
 
-sudo apt install apache2 -y
+## 2. Install Apache  
+Run the following commands:  
+`sudo apt install apache2 -y`  
+`sudo systemctl enable apache2`  
+`sudo systemctl start apache2`  
 
-sudo systemctl enable apache2
+Test Apache by opening your browser and navigating to:  
+`http://localhost`  
 
-sudo systemctl start apache2
+You should see the Apache default welcome page.
 
-Test in browser: http://localhost
+---
 
-## Install MariaDB:
+## 3. Install MariaDB  
+Run:  
+`sudo apt install mariadb-server mariadb-client -y`  
+Then secure the installation:  
+`sudo mysql_secure_installation`  
 
-sudo apt install mariadb-server mariadb-client -y
+Recommended answers for beginners:  
+- Set root password: Optional (press Enter to skip)  
+- Remove anonymous users: `Y`  
+- Disallow remote root login: `Y`  
+- Remove test database: `Y`  
+- Reload privilege tables: `Y`
 
-sudo mysql_secure_installation
+---
 
-Set root password (optional)
+## 4. Install PHP  
+Run:  
+`sudo apt install php libapache2-mod-php php-mysql -y`  
+Check PHP version:  
+`php -v`
 
-Remove anonymous users: Y
+---
 
-Disallow remote root login: Y
+## 5. Test PHP  
+Create a test PHP file by running:  
+`sudo nano /var/www/html/info.php`  
 
-Remove test database: Y
+Add the following line exactly:  
+`<?php phpinfo(); ?>`  
 
-Reload privileges: Y
+Save and exit by pressing **CTRL+O**, then **Enter**, then **CTRL+X**.  
 
-## Install PHP:
+Open your browser and visit:  
+`http://localhost/info.php`  
 
-sudo apt install php libapache2-mod-php php-mysql -y
+You should see the PHP information page.
 
-php -v
+---
 
-## Test PHP:
+## 6. Done!  
+You now have:  
+- Apache (web server)  
+- MariaDB (database server)  
+- PHP (server-side scripting language)  
 
-sudo nano /var/www/html/info.php
+### Next Steps:  
+- Install WordPress or other web applications  
+- Learn PHP and MySQL basics  
+- Build your first local website
 
-Insert: <?php phpinfo(); ?>
+---
 
-Save and exit (CTRL+O, Enter, CTRL+X)
-
-Open in browser: http://localhost/info.php
-
-## Done:
-You now have Apache, MariaDB, and PHP installed.
-Next steps: Try WordPress, learn PHP/MySQL, create a local site.
+## Security Note  
+This guide is intended for **local development only**. For public-facing servers, you should configure additional security measures.
